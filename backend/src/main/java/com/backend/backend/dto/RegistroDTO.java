@@ -18,7 +18,6 @@ public class RegistroDTO {
         this.aprobada = aprobada;
     }
 
-    // Getters y setters
     public Integer getId() { return id; }
     public String getNombreEstudiante() { return nombreEstudiante; }
     public String getCodigoEstudiante() { return codigoEstudiante; }

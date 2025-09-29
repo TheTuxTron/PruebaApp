@@ -19,7 +19,6 @@ public class Estudiante {
     @Column(nullable = false, length = 100)
     private String nombre;
 
-    // Relación con EstudianteMateriaPeriodo
     @OneToMany(mappedBy = "estudiante")
     private Set<EstudianteMateriaPeriodo> materias;
 

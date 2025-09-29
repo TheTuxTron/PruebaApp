@@ -14,17 +14,12 @@ public class EscuelaController {
     @Autowired
     private EscuelaServices escuelaService;
 
-    /**
-     * Endpoint para consultar registros filtrados.
-     * Ejemplo: /api/escuela/registros?estudiante=1&periodo=2&materia=3
-     */
     @GetMapping("/registros")
     public List<RegistroDTO> getRegistros(
             @RequestParam(required = false) Long estudiante,
             @RequestParam(required = false) Long periodo,
             @RequestParam(required = false) Long materia) {
 
-        // Devuelve DTOs en lugar de entidades
         return escuelaService.buscarRegistros(estudiante, periodo, materia);
     }
 }

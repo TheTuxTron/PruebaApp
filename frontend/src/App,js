@@ -14,7 +14,6 @@ function App() {
       if (codigo) params.append("codigoAlumno", codigo);
       if (periodo) params.append("nombrePeriodo", periodo);
 
-      // Cambia la URL si tu backend corre en otro host/puerto
       const response = await fetch(`http://localhost:8080/emp/buscar?${params.toString()}`);
       const data = await response.json();
       setRegistros(data);
