@@ -1,0 +1,60 @@
+import React, { useState } from "react";
+import RegistroTable from "./components/RegistroTable";
+
+function App() {
+  const [codigo, setCodigo] = useState("");
+  const [periodo, setPeriodo] = useState("");
+  const [registros, setRegistros] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const buscarRegistros = async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams();
+      if (codigo) params.append("codigoAlumno", codigo);
+      if (periodo) params.append("nombrePeriodo", periodo);
+
+      // Cambia la URL si tu backend corre en otro host/puerto
+      const response = await fetch(`http://localhost:8080/emp/buscar?${params.toString()}`);
+      const data = await response.json();
+      setRegistros(data);
+    } catch (error) {
+      console.error("Error al obtener registros:", error);
+      alert("Error al conectar con el backend");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+      <h1>Consulta de Registros</h1>
+
+      <div style={{ marginBottom: "10px" }}>
+        <input
+          type="text"
+          placeholder="Código del estudiante"
+          value={codigo}
+          onChange={(e) => setCodigo(e.target.value)}
+          style={{ marginRight: "10px" }}
+        />
+        <input
+          type="text"
+          placeholder="Nombre del periodo"
+          value={periodo}
+          onChange={(e) => setPeriodo(e.target.value)}
+          style={{ marginRight: "10px" }}
+        />
+        <button onClick={buscarRegistros}>Buscar</button>
+      </div>
+
+      {loading ? (
+        <p>Cargando...</p>
+      ) : (
+        <RegistroTable registros={registros} />
+      )}
+    </div>
+  );
+}
+
+export default App;
